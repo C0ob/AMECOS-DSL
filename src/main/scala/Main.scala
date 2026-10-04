@@ -2,7 +2,7 @@ import Ast.App
 
 import java.nio.file.{Path, Paths}
 
-/** Command-line entrypoint for validating and visualizing one `.amecos` file. */
+/** DSL entrypoint for validating and visualizing one `.amecos` file. */
 object Main:
   /** Validates the supplied file and optionally writes its process diagram. */
   def main(args: Array[String]): Unit =

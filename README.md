@@ -1,6 +1,6 @@
-# AMECOS validator
+# AMECOS DSL
 
-A Scala 3 command-line validator for [AMECOS](https://doi.org/10.4230/LIPIcs.OPODIS.2024.4) object specifications, histories, orderings, and consistency models.
+A Scala 3 DSL for [AMECOS](https://doi.org/10.4230/LIPIcs.OPODIS.2024.4) object specifications, histories, orderings, and consistency models.
 
 ## Requirements
 
@@ -13,7 +13,7 @@ sbt test
 sbt 'run examples/example.amecos'
 ```
 
-The CLI accepts one `.amecos` file and reports parser diagnostics, the
+The DSL accepts one `.amecos` file and reports parser diagnostics, the
 resulting order, legality, and requested consistency checks.
 
 ## Example
