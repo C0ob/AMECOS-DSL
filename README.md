@@ -21,7 +21,7 @@ resulting order, legality, and requested consistency checks.
 ```amecos
 import "typelib/Register.amecos"
 
-check Linearizability, SeqCons
+check Atomic, Sequential
 new Register<int> R
 
 process p1:
