@@ -16,8 +16,7 @@ object HistoryParser:
     val tokens = new CommonTokenStream(lexer)
     val parser = new AmecosParser(tokens)
 
-    parser.removeErrorListeners()
-    parser.addErrorListener(new BaseErrorListener {
+    val errorListener = new BaseErrorListener {
       override def syntaxError(
                                 recognizer: Recognizer[?, ?],
                                 offendingSymbol: Any,
@@ -27,6 +26,11 @@ object HistoryParser:
                                 e: RecognitionException
                               ): Unit =
         throw new RuntimeException(s"Syntax error at $line:$charPositionInLine - $msg")
-    })
+    }
+
+    lexer.removeErrorListeners()
+    lexer.addErrorListener(errorListener)
+    parser.removeErrorListeners()
+    parser.addErrorListener(errorListener)
 
     new AstBuilder().visitApp(parser.app())
