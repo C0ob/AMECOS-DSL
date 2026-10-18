@@ -29,6 +29,8 @@ class OperationFactory(inputTypes: Array[TypeExpr],
     override val input: Array[Data] = args.toArray
     override val output: Data = ret.getOrElse(UnitData())
 
+    if input.length != resolvedInputTypes.length then
+      throw IllegalArgumentException(s"Expected ${resolvedInputTypes.length} input(s), got ${input.length}")
     if input.indices.exists(i => resolvedInputTypes(i) != input(i).getType) then throw IllegalArgumentException("Input type mismatch")
     if output.getType != resolvedOutputType then throw IllegalArgumentException("Output type mismatch")
 
