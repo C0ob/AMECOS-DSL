@@ -10,20 +10,20 @@ sealed abstract class Consistency(val name: String):
   override def toString: String = name
 
 /** AMECOS condition requiring a total order that respects real-time ordering. */
-object Atomic extends Consistency("Linearizability"):
+object Atomic extends Consistency("Atomic"):
   val level = 2
 
   override def check(order: Order): Boolean = Consistency.totally_ordered(order) && Consistency.real_time_ordered(order, order.history.opExes)
 
 
 /** AMECOS condition requiring each process's operations to respect real-time order while enforcing a total order. */
-object Sequential extends Consistency("SeqCons"):
+object Sequential extends Consistency("Sequential"):
   val level = 1
 
   override def check(order: Order): Boolean = Consistency.totally_ordered(order) && Consistency.process_ordered(order)
 
 /** AMECOS condition requiring each process's operations to respect real-time order but does not enforce a total order. */
-object Causal extends Consistency("CausalCons"):
+object Causal extends Consistency("Causal"):
   val level = 0
 
   override def check(order: Order): Boolean = Consistency.process_ordered(order)
