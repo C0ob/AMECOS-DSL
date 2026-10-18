@@ -44,12 +44,12 @@ object Main:
         if consistencies.nonEmpty then println("!--- Checking consistencies:")
         var levelInvalid = Integer.MAX_VALUE
         consistencies.toList.sortBy(_.level) foreach (c =>
-          if levelInvalid < c.level || c.check(order)
+          if levelInvalid < c.level || !c.check(order)
           then
-            println(Console.GREEN + c.name + " is satisfied" + Console.RESET)
-          else
             println(Console.RED + c.name + " is not satisfied" + Console.RESET)
             levelInvalid = Math.min(levelInvalid, c.level)
+          else
+            println(Console.GREEN + c.name + " is satisfied" + Console.RESET)
           )
 
         if options.diagram then
