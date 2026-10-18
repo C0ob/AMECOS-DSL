@@ -65,7 +65,7 @@ class AstBuilder extends AmecosBaseVisitor[Ast]:
         case PredType.s => sPred = predicate.f
         case PredType.l => lPred = predicate.f
       })
-    OpDef(CustomOperationFactory(signature.inputTypes, signature.outputType, name, vPred, sPred, lPred))
+    OpDef(OperationFactory(signature.inputTypes, signature.outputType, name, vPred, sPred, lPred))
 
   override def visitSignature(ctx: AmecosParser.SignatureContext): OpSignature =
     val inputTypes = parseInputtype(ctx.inputtype())

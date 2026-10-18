@@ -28,7 +28,7 @@ object Ast:
   case class TypeDef(factory: ObjectFactory) extends Ast
   
   /** Parsed custom operation. */
-  case class OpDef(factory: CustomOperationFactory) extends Ast
+  case class OpDef(factory: OperationFactory) extends Ast
   
   /** Parsed operation signature. */
   case class OpSignature(inputTypes: Array[TypeExpr], outputType: TypeExpr) extends Ast

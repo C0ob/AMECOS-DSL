@@ -2,16 +2,16 @@
 type Formula = (Order, Operation) => Boolean
 
 /** Creates custom operations from the user-defined DSL. */
-class CustomOperationFactory(inputTypes: Array[TypeExpr],
-                             outputType: TypeExpr,
-                             val name: String,
-                             val vPred: Formula,
-                             val sPred: Formula,
-                             val lPred: Formula):
+class OperationFactory(inputTypes: Array[TypeExpr],
+                       outputType: TypeExpr,
+                       val name: String,
+                       val vPred: Formula,
+                       val sPred: Formula,
+                       val lPred: Formula):
 
   /** Specializes this operation signature for one concrete generic instantiation. */
-  def specialize(typeVals: Map[String, DataTypes]): CustomOperationFactory =
-    new CustomOperationFactory(
+  def specialize(typeVals: Map[String, DataTypes]): OperationFactory =
+    new OperationFactory(
       inputTypes.map(t => TypeExpr.Concrete(t.resolve(typeVals))),
       TypeExpr.Concrete(outputType.resolve(typeVals)),
       name, vPred, sPred, lPred)

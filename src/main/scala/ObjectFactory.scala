@@ -1,8 +1,8 @@
 /** Creates objects of custom types defined in the DSL. */
-class ObjectFactory(val name: String, opFactories: Set[CustomOperationFactory], typeVars: List[String]):
+class ObjectFactory(val name: String, opFactories: Set[OperationFactory], typeVars: List[String]):
   require(typeVars.distinct.size == typeVars.size, s"Duplicate type parameter in $name")
   private def factory_new_op(obj: Object, process: Process, name: String, args: List[Data], ret: Option[Data], start: Int, end: Int,
-                             factories: Set[CustomOperationFactory]): Operation =
+                             factories: Set[OperationFactory]): Operation =
     val factory = factories.find(_.name == name)
     factory match
       case Some(operationFactory) => operationFactory.create(process, obj, args, ret, start, end)
@@ -16,6 +16,6 @@ class ObjectFactory(val name: String, opFactories: Set[CustomOperationFactory], 
     val typeVals = typeVars.zip(typeArgs).toMap
     new CustomObject(objectName, opFactories.map(_.specialize(typeVals)))
 
-  private class CustomObject(objectName: String, factories: Set[CustomOperationFactory]) extends Object(objectName):
+  private class CustomObject(objectName: String, factories: Set[OperationFactory]) extends Object(objectName):
     override def new_op(process: Process, name: String, args: List[Data], ret: Option[Data], start: Int, end: Int): Operation =
       factory_new_op(this, process, name, args, ret, start, end, factories)
